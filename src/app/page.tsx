@@ -1,15 +1,26 @@
-// páginas vão provavelmente ser server components
+import { Suspense } from 'react'
+import { GithubProfile } from '@/components/github-profile'
+import { LongWaitComponent } from '@/components/long-wait-component'
+
+// por padrão, o next aguarda TODOS os componentes finalizem de ser carregados
+// para mostrar o conteúdo.
+
+// Suspense API é um componente que pode ser usado em volta de um componente
+// que demora a ser carregado, isso faz com que possamos criar as sessões de loading
+// na página sem ser global, e sim para elementos separados
+
 export default async function Home() {
-  // componente assíncrono quer dizer que o carregamento de dados pode ser
-  // diretamente dentro do componente
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  return (
+    <div>
+      <h1>Home!</h1>
 
-  // esse tipo de carregamento de dado só vai ser feito dessa maneira, quando o
-  // componente precisar dessa informação pra ser renderizado assim que entrar
-  // na tela: (ou seja, não iremos usar quando precisar de uma ação do usuário
-  // para renderizar o dado, ex: botão)
-  const response = await fetch('https://api.github.com/users/EricaReis')
-  const user = await response.json()
+      <Suspense fallback={<p>Carregando LongWaitComponent</p>}>
+        <LongWaitComponent />
+      </Suspense>
 
-  return <pre>{JSON.stringify(user, null, 2)}</pre>
+      <Suspense fallback={<p>Carregando GithubProfile</p>}>
+        <GithubProfile />
+      </Suspense>
+    </div>
+  )
 }
