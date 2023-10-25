@@ -1,11 +1,10 @@
-'use client'
-
-import { useState } from "react";
 
 //um componente client, NÂO deve ser usado com um 'async', porque toda vez que
 //alterar um estado, o componente vai ser renderizado novamente.
 //o fetch de dados, em client component, pode ser feito da forma 'raíz', com 
-//useEffect por exemplo :)
+//useEffect por exemplo :), ou o reactquery(tanstack query), o SWR, urql...
+
+import { AddToCartButton } from "./add-to-cart-button";
 
 interface ProductProps {
   params: {
@@ -24,16 +23,17 @@ interface ProductProps {
 //parciais pelo restante dos dados que vem da API.
 
 export default async function Product({ params }: ProductProps ){
-  const [count, setCount] = useState(0)
+  //quando a gente tranforma um componente em client component, é assumido que
+  //todo o javascript necessário p/ JS funcionar, vai ser enviado para o 
+  //navegador, então deve-se abstrarir ao máximo os client components.
 
-  console.log(count)
+  //ou seja, sempre que for ter alguma interatividade, se der pra isolar, melhor
+
+  const response =  await fetch('https://api.github.com/users/EricaReis')
+  const user =  await response.json()
+
   const [productId, size, color] = params.data;
 
-  await new Promise(resolve => setTimeout(resolve, 2000))
-
-  function addToCart() {
-    setCount((state) => state + 1)
-  }
 
   return (
     <div>
@@ -41,7 +41,7 @@ export default async function Product({ params }: ProductProps ){
       <p>Size: {size}</p>
       <p>Color: {color}</p>
 
-      <button type='button' onClick={addToCart}>Adicionar ao carrinho</button>
+      <AddToCartButton />
     </div>
   )
 }
