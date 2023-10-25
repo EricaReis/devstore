@@ -1,10 +1,10 @@
+// um componente client, NÂO deve ser usado com um 'async', porque toda vez que
+// alterar um estado, o componente vai ser renderizado novamente.
+// o fetch de dados, em client component, pode ser feito da forma 'raíz', com
+// useEffect por exemplo :), ou o reactquery(tanstack query), o SWR, urql...
 
-//um componente client, NÂO deve ser usado com um 'async', porque toda vez que
-//alterar um estado, o componente vai ser renderizado novamente.
-//o fetch de dados, em client component, pode ser feito da forma 'raíz', com 
-//useEffect por exemplo :), ou o reactquery(tanstack query), o SWR, urql...
-
-import { AddToCartButton } from "./add-to-cart-button";
+import { AddToCartButton } from './add-to-cart-button'
+import { Test } from './test'
 
 interface ProductProps {
   params: {
@@ -12,28 +12,27 @@ interface ProductProps {
   }
 }
 
-//Streaming SSR => Ler/escrever dados de forma parcial + Server-Side Rendering
-//Renderizar um componente pelo lado do servidor de forma PARCIAL.
+// Streaming SSR => Ler/escrever dados de forma parcial + Server-Side Rendering
+// Renderizar um componente pelo lado do servidor de forma PARCIAL.
 
-//Ou seja, a requisição fica aberta, retornando novos dados, até os dados do
-//page.tsx forem carregados.
+// Ou seja, a requisição fica aberta, retornando novos dados, até os dados do
+// page.tsx forem carregados.
 
-//Streaming SSR é a funcionalidade do next de trazer na mesma requisição, os dados
-//que vão aparecer na tela, e depois que os dados são carregados, substituir os dados
-//parciais pelo restante dos dados que vem da API.
+// Streaming SSR é a funcionalidade do next de trazer na mesma requisição, os dados
+// que vão aparecer na tela, e depois que os dados são carregados, substituir os dados
+// parciais pelo restante dos dados que vem da API.
 
-export default async function Product({ params }: ProductProps ){
-  //quando a gente tranforma um componente em client component, é assumido que
-  //todo o javascript necessário p/ JS funcionar, vai ser enviado para o 
-  //navegador, então deve-se abstrarir ao máximo os client components.
+export default async function Product({ params }: ProductProps) {
+  // quando a gente tranforma um componente em client component, é assumido que
+  // todo o javascript necessário p/ JS funcionar, vai ser enviado para o
+  // navegador, então deve-se abstrarir ao máximo os client components.
 
-  //ou seja, sempre que for ter alguma interatividade, se der pra isolar, melhor
+  // ou seja, sempre que for ter alguma interatividade, se der pra isolar, melhor
 
-  const response =  await fetch('https://api.github.com/users/EricaReis')
-  const user =  await response.json()
+  const response = await fetch('https://api.github.com/users/EricaReis')
+  const user = await response.json()
 
-  const [productId, size, color] = params.data;
-
+  const [productId, size, color] = params.data
 
   return (
     <div>
@@ -41,7 +40,9 @@ export default async function Product({ params }: ProductProps ){
       <p>Size: {size}</p>
       <p>Color: {color}</p>
 
-      <AddToCartButton />
+      <AddToCartButton>
+        <Test />
+      </AddToCartButton>
     </div>
   )
 }
