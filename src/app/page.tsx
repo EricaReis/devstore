@@ -1,3 +1,4 @@
+// páginas vão provavelmente ser server components
 export default async function Home() {
   // componente assíncrono quer dizer que o carregamento de dados pode ser
   // diretamente dentro do componente
