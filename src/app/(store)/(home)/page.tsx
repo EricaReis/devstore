@@ -3,8 +3,26 @@ import { Product } from '@/data/types/products'
 import Image from 'next/image'
 import Link from 'next/link'
 
+/**
+ * Cache & Memoization
+ * Memoization: Se fizer uma requisição usando fetch API e durante a msm requisição
+ * for feita a mesma request duplicada, o react trava para que aconteça apenas
+ * uma vez. Com server components é automática a memoização.
+ *
+ * Cache: Estrutura de dados que armazena dados das requisições já feitas, e se
+ * tentar fazer a requisição novamente, ele pode validar se já tem os dados da
+ * requisição.
+ *
+ * 'no-store': não cacheia as requisições
+ * 'next revalidate': coloca um tempo determinado para o cache da primeira requisição
+ */
+
 async function getFeaturedProducts(): Promise<Product[]> {
-  const response = await api('/products/featured')
+  const response = await api('/products/featured', {
+    next: {
+      revalidate: 60 * 60, // seta o cache em 1 hora
+    },
+  })
 
   const products = await response.json()
 
