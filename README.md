@@ -14,7 +14,7 @@ Key Features:
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/EricaReis/messenger-clone-nextjs13.git
+git clone https://github.com/EricaReis/devstore.git
 ```
 
 ### Install packages
