@@ -23,6 +23,13 @@ git clone https://github.com/EricaReis/devstore.git
 npm i
 ```
 
+### Setup .env file
+
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+APP_URL=http://localhost:3000
+```
+
 ### Start the app
 
 ```shell
