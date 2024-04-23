@@ -30,6 +30,12 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
 APP_URL=http://localhost:3000
 ```
 
+To run using API link:
+```
+NEXT_PUBLIC_API_BASE_URL=https://devstore-api-six-ebon.vercel.app/
+```
+
+
 ### Start the app
 
 ```shell
